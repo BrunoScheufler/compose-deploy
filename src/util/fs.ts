@@ -17,3 +17,6 @@ export const fileExists = async (path: string) => {
     return false;
   }
 };
+
+export const readFileOptional = (filePath?: string) =>
+  filePath ? readFile(filePath) : undefined;
