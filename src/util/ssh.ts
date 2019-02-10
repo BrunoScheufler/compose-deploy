@@ -76,3 +76,14 @@ export const remoteFileExists = (path: string) =>
       });
     });
   });
+
+export const getRemotePaths = (username: string, projectName: string) => {
+  const remoteDirPath = `/home/${username}/compose-deploy/${projectName}`;
+  const remoteFileName = `docker-compose.yml`;
+  const remoteFilePath = `${remoteDirPath}/${remoteFileName}`;
+  return {
+    remoteDirPath,
+    remoteFileName,
+    remoteFilePath
+  };
+};

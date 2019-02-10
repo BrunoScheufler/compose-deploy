@@ -27,6 +27,13 @@ export interface IInitCommandArgs {
 
 export interface IDeployCommandArgs {
   config: string;
+  scale: string[];
+}
+
+export interface ITeardownCommandArgs {
+  config: string;
+  volumes: boolean;
+  orphans: boolean;
 }
 
 /*

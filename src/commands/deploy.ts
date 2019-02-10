@@ -2,14 +2,15 @@ import { CommandModule } from 'yargs';
 import { loadConfig } from '../util/config';
 import { IDeployCommandArgs } from '../types';
 import { resolve } from 'path';
-import { fileExists, readFile } from '../util/fs';
+import { fileExists, readFileOptional } from '../util/fs';
 import { build, push } from '../util/docker';
 import {
   connect,
   disconnect,
   exec,
   uploadFile,
-  remoteFileExists
+  remoteFileExists,
+  getRemotePaths
 } from '../util/ssh';
 
 export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
@@ -18,14 +19,22 @@ export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
   // tslint:disable-next-line
   describe: `Deploy a docker-compose file using the existing compose-deploy configuration.`,
   builder(b) {
-    return b.option('config', {
-      alias: 'cfg',
-      default: '.',
-      describe: 'Configuration file directory'
-    });
+    return b
+      .option('config', {
+        alias: 'cfg',
+        default: '.',
+        describe: 'Configuration file directory',
+        string: true
+      })
+      .option('scale', {
+        default: [],
+        describe: 'Scale service instances',
+        array: true
+      });
   },
   async handler(args) {
-    const { composeFile, name, targets } = await loadConfig(args.config);
+    const { config, scale } = args;
+    const { composeFile, name, targets } = await loadConfig(config);
 
     // Check if local compose file exists
     const composeFilePath = resolve(composeFile || 'docker-compose.yml');
@@ -55,9 +64,7 @@ export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
       );
 
       // Load private key if supplied
-      const privateKey = privateKeyFile
-        ? await readFile(privateKeyFile)
-        : undefined;
+      const privateKey = await readFileOptional(privateKeyFile);
 
       // Pass all config keys into connect
       console.log('📡 Connecting to target server');
@@ -65,12 +72,13 @@ export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
 
       console.log('🥁 Connected! Copying Compose file...');
 
-      const remoteDirPath = `/home/${username}/compose-deploy/${name}`;
-      const remoteFileName = `docker-compose.yml`;
-      const remoteFilePath = `${remoteDirPath}/${remoteFileName}`;
+      const { remoteDirPath, remoteFilePath } = getRemotePaths(username, name);
 
       // Stop existing deployments, delete old compose file
       if (await remoteFileExists(remoteFilePath)) {
+        console.log(
+          '👀 Found deployment for this project, shutting it down...'
+        );
         await exec(`cd ${remoteDirPath} && docker-compose down`);
         await exec(`rm ${remoteFilePath}`);
       }
@@ -85,11 +93,17 @@ export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
       await exec(`cd ${remoteDirPath} && docker-compose pull`);
 
       console.log('⚡️ Launching deployment...');
-      await exec(`cd ${remoteDirPath} && docker-compose up -d`);
+      await exec(
+        `cd ${remoteDirPath} && docker-compose up -d ${scale
+          .map(s => `--scale ${s}`)
+          .join(' ')}`
+      );
 
       disconnect();
 
       console.log('✅ Deployment done!');
     }
+
+    console.log('🙌 All services deployed!');
   }
 };
