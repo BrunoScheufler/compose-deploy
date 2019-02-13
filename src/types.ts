@@ -13,8 +13,10 @@ export interface IDeploymentTarget {
   host: string;
   username: string;
   password?: string;
-  privateKeyFile?: string;
   passphrase?: string;
+
+  // Custom config properties
+  privateKeyFile?: string;
 }
 
 /*
