@@ -46,6 +46,13 @@ Currently, there's no other way to access your deployments than by checking manu
   - `privateKeyFile` can be used to supply the file path of your private key used for SSH auth
 - `composeFile`: The path of your compose file (defaults to `docker-compose.yml` in your current working directory)
 
+### environment variables
+
+Some SSH connection options are automatically used when present as environment variables, including
+
+- `SSH_AUTH_SOCK`: Path to a UNIX socket created by your running ssh-agent (optional)
+- `COMPOSE_DEPLOY_SSH_PASSPHRASE`, `COMPOSE_DEPLOY_SSH_PASSWORD`, `COMPOSE_DEPLOY_SSH_USER`, `COMPOSE_DEPLOY_SSH_HOST`, `COMPOSE_DEPLOY_SSH_PORT`: Connection-specific options, which can be supplied and overriden by your configuration
+
 ## license
 
 This project is licensed under the [MIT License](LICENSE).

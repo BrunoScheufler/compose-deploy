@@ -12,6 +12,7 @@ import {
   remoteFileExists,
   getRemotePaths
 } from '../util/ssh';
+import { fromEnv } from '../util/env';
 
 export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
   command: 'deploy',
@@ -68,7 +69,7 @@ export const deployCommand: CommandModule<{}, IDeployCommandArgs> = {
 
       // Pass all config keys into connect
       console.log('📡 Connecting to target server');
-      await connect({ ...rest, username, privateKey });
+      await connect({ ...fromEnv(), ...rest, username, privateKey });
 
       console.log('🥁 Connected! Copying Compose file...');
 
