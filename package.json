@@ -1,6 +1,6 @@
 {
   "name": "compose-deploy",
-  "version": "1.2.0",
+  "version": "0.0.0-development",
   "description": "Docker Compose deployment tool using ssh2",
   "bin": {
     "compose-deploy": "build/index.js",
@@ -20,6 +20,8 @@
     "@types/node": "10.12.24",
     "@types/yargs": "12.0.8",
     "@types/yup": "0.26.9",
+    "prettier": "^1.18.2",
+    "semantic-release": "^15.13.12",
     "tslint": "5.12.1",
     "typescript": "3.3.3"
   },
@@ -34,8 +36,20 @@
   },
   "scripts": {
     "build": "tsc --project .",
-    "lint": "tslint --project .",
+    "lint:style": "prettier --check src/**/*.ts",
+    "lint:code": "tslint --project .",
+    "lint": "yarn lint:style && yarn lint:code",
     "watch": "tsc --project . --watch",
-    "prepare": "yarn build && yarn lint"
+    "prepare": "yarn build && yarn lint",
+    "test": "echo \"Currently, there are no tests, this placeholder was added so the current step won't fail.\"",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
   }
 }
