@@ -1,5 +1,7 @@
 # compose-deploy
 
+[![CircleCI](https://circleci.com/gh/BrunoScheufler/compose-deploy.svg?style=svg)](https://circleci.com/gh/BrunoScheufler/compose-deploy)
+
 > CLI to deploy docker-compose setups to remote servers using ssh
 
 ## about
