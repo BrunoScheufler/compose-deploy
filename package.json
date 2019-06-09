@@ -20,8 +20,8 @@
     "@types/node": "10.12.24",
     "@types/yargs": "12.0.8",
     "@types/yup": "0.26.9",
-    "prettier": "^1.18.2",
-    "semantic-release": "^15.13.12",
+    "prettier": "1.18.2",
+    "semantic-release": "15.13.12",
     "tslint": "5.12.1",
     "typescript": "3.3.3"
   },
