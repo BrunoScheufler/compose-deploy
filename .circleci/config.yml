@@ -1,18 +1,23 @@
-# Based on
-# https://github.com/semantic-release/semantic-release/blob/master/docs/usage/ci-configuration.md#authentication
-# https://github.com/semantic-release/semantic-release/blob/master/docs/usage/configuration.md#git-environment-variables
-#
-# Required Environment variables:
-# GIT_AUTHOR_NAME - Name of tag author
-# GIT_AUTHOR_EMAIL - Email of tag author
-# GIT_COMMITTER_NAME - Name of tag committer
-# GIT_COMMITTER_EMAIL - Email of tag committer
-# GH_TOKEN - Token for GitHub actions (tagging, publishing releases)
-# NPM_TOKEN - Token for npm publishing workflow
-
-version: 2
+version: 2.1
 jobs:
-  build:
+  test:
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      # install dependencies
+      - run:
+          name: install
+          command: yarn
+      # lint code
+      - run:
+          name: lint
+          command: yarn lint
+      # run tests
+      - run:
+          name: test
+          command: yarn test
+  release:
     docker:
       - image: 'circleci/node:latest'
     steps:
@@ -33,3 +38,19 @@ jobs:
       - run:
           name: release
           command: yarn semantic-release
+workflows:
+  version: 2
+  simple-test:
+    jobs:
+      # run test job on every change except pushes to master branch
+      - test:
+          filters:
+            branches:
+              ignore:
+                - master
+      # run release job only for pushes to master
+      - release:
+          filters:
+            branches:
+              only:
+                - master
