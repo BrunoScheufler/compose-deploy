@@ -40,7 +40,7 @@ jobs:
           command: yarn semantic-release
 workflows:
   version: 2
-  simple-test:
+  default-workflow:
     jobs:
       # run test job on every change except pushes to master branch
       - test:
