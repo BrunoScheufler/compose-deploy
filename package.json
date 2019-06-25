@@ -21,7 +21,7 @@
     "@types/yargs": "13.0.0",
     "@types/yup": "0.26.9",
     "prettier": "1.18.2",
-    "semantic-release": "15.13.16",
+    "semantic-release": "15.13.17",
     "tslint": "5.18.0",
     "typescript": "3.5.2"
   },
