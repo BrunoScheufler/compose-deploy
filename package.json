@@ -28,7 +28,7 @@
   "dependencies": {
     "@types/ssh2": "0.5.39",
     "chalk": "2.4.2",
-    "execa": "3.0.0",
+    "execa": "3.1.0",
     "js-yaml": "3.13.1",
     "ssh2": "0.8.5",
     "yargs": "14.2.0",
