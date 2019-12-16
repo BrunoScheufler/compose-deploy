@@ -19,7 +19,7 @@
     "@types/js-yaml": "3.12.1",
     "@types/node": "10.14.15",
     "@types/yargs": "13.0.3",
-    "@types/yup": "0.26.9",
+    "@types/yup": "0.26.26",
     "prettier": "1.19.1",
     "semantic-release": "15.13.31",
     "tslint": "5.20.1",
@@ -32,7 +32,7 @@
     "js-yaml": "3.13.1",
     "ssh2": "0.8.7",
     "yargs": "15.0.2",
-    "yup": "0.26.10"
+    "yup": "0.28.0"
   },
   "scripts": {
     "build": "tsc --project .",
