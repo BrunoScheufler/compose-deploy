@@ -23,7 +23,7 @@
     "prettier": "1.19.1",
     "semantic-release": "15.13.31",
     "tslint": "5.20.1",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "dependencies": {
     "@types/ssh2": "0.5.39",
