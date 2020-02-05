@@ -19,7 +19,7 @@
     "@types/js-yaml": "3.12.2",
     "@types/node": "10.14.15",
     "@types/yargs": "15.0.3",
-    "@types/yup": "0.26.29",
+    "@types/yup": "0.26.30",
     "prettier": "1.19.1",
     "semantic-release": "15.14.0",
     "tslint": "5.20.1",
