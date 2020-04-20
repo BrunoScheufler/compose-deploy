@@ -32,7 +32,7 @@
     "js-yaml": "3.13.1",
     "ssh2": "0.8.9",
     "yargs": "15.3.1",
-    "yup": "0.28.3"
+    "yup": "0.28.4"
   },
   "scripts": {
     "build": "tsc --project .",
