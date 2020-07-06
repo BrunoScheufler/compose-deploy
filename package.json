@@ -26,7 +26,7 @@
     "typescript": "3.9.6"
   },
   "dependencies": {
-    "@types/ssh2": "0.5.43",
+    "@types/ssh2": "0.5.44",
     "chalk": "4.1.0",
     "execa": "4.0.2",
     "js-yaml": "3.14.0",
